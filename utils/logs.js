@@ -41,7 +41,8 @@ module.exports = {
 		}
 
 		const r = new RegExp(".*/(?<img>.+)\\?.*$");
-		const execd = r.exec(link);
+		let execd = r.exec(link);
+		if (!execd || !execd.groups || !execd.groups.img) execd = link.match(/.*\/(?<img>.+)\\?.*$/);
 		if (!execd || !execd.groups || !execd.groups.img) return null;
 
 		const filename = execd.groups.img || "unknown.png";
